@@ -15,8 +15,8 @@ jobs:
       - name: Получить Crumb
         id: get-crumb
         run: |
-          CRUMB=$({{ secrets.CRUMB_URL }})
-          echo "::set-output name=CRUMB::$CRUMB"
+          CRUMB=$(${{ secrets.CRUMB_URL }})
+          echo "CRUMB=${CRUMB}" >> $GITHUB_OUTPUT
       
       - name: Trigger Jenkins Job
         run: |
