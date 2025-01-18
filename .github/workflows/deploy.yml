@@ -5,10 +5,18 @@ on:
     branches:
       - main
 
-jobs:
-  trigger-jenkins:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Jenkins Job
-        run: |
-          curl -X POST ${{ secrets.DEPLOY_URL }}
+   jobs:
+     trigger-jenkins:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Получить Crumb
+           id: get-crumb
+           run: |
+             CRUMB=$({{ secrets.CRUMB_URL }})
+             echo "::set-output name=CRUMB::$CRUMB"
+         
+         - name: Trigger Jenkins Job
+           run: |
+             curl -X POST "${{ secrets.DEPLOY_URL }}" \
+               -H "Jenkins-Crumb: ${{ steps.get-crumb.outputs.CRUMB }}" \
+               --user {{ secrets.USER_TOKEN }}
