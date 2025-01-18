@@ -9,6 +9,9 @@ jobs:
   trigger-jenkins:
     runs-on: ubuntu-latest
     steps:
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
       - name: Получить Crumb
         id: get-crumb
         run: |
