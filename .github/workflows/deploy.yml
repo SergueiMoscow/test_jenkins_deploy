@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Trigger Jenkins Job
         run: |
-          curl -X POST https://${{ secrets.DEPLOY_URL }}
+          curl -X POST ${{ secrets.DEPLOY_URL }}
